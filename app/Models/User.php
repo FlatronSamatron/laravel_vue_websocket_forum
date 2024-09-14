@@ -42,4 +42,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getAvatarUrl()
+    {
+        return $this->avatar ? url('storage/' . $this->avatar) : url('default_avatar.webp');
+    }
 }

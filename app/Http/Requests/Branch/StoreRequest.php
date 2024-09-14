@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Section;
+namespace App\Http\Requests\Branch;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,9 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-                'title' => 'required|string'
+                'section_id' => 'required|int|exists:sections,id',
+                'parent_id' => 'nullable|int|exists:branches,id',
+                'title' => 'required|string',
         ];
     }
 }

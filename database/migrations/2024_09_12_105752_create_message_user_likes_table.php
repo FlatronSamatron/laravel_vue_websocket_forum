@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use \App\Models\{Message, User};
 
 return new class extends Migration
 {
@@ -11,9 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sections', function (Blueprint $table) {
+        Schema::create('message_user_likes', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->foreignIdFor(Message::class)->index()->constrained();
+            $table->foreignIdFor(User::class)->index()->constrained();
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sections');
+        Schema::dropIfExists('message_user_likes');
     }
 };

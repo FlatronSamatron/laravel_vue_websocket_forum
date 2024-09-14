@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Section;
+namespace App\Http\Requests\Message;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,7 +22,9 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-                'title' => 'required|string'
+                'content' => 'required|string',
+                'theme_id' => 'required|int|exists:themes,id',
+                'user_id' => 'required|int|exists:users,id'
         ];
     }
 }

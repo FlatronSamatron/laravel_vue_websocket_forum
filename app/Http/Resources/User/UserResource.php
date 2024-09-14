@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Section;
+namespace App\Http\Resources\User;
 
-use App\Http\Resources\Branch\BranchResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SectionResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +15,9 @@ class SectionResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-               'id' => $this->id,
-               'title' => $this->title,
+                'id' => $this->id,
+                'name' => $this->name,
+                'avatar' => $this->getAvatarUrl(),
         ];
     }
 }

@@ -1,0 +1,80 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Theme\StoreRequest;
+use App\Http\Requests\Theme\UpdateRequest;
+use App\Http\Resources\Theme\ThemeResource;
+use App\Http\Resources\Theme\ThemeWithMessagesResource;
+use App\Models\Theme;
+use Illuminate\Http\Request;
+
+class ThemeController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreRequest $request)
+    {
+        $data = $request->validated();
+        Theme::query()->create($data);
+
+        return redirect(route('branches.show', $data['branch_id']));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Theme $theme)
+    {
+        $theme = ThemeWithMessagesResource::make($theme)->resolve();
+
+        return inertia('Theme/show', compact('theme'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Theme $theme)
+    {
+        $theme = ThemeResource::make($theme)->resolve();
+        return inertia('Theme/edit', compact('theme'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateRequest $request, Theme $theme)
+    {
+        $theme->update($request->validated());
+
+        return redirect(route('branches.show', $theme->branch_id));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Theme $theme)
+    {
+        $theme->delete();
+
+        return redirect(route('branches.show', $theme->branch_id));
+    }
+}
